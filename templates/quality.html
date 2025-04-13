@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Quality</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1f1f1f;
+      color: #fff;
+      margin: 0;
+      padding-top: 80px;
+    }
+
+    nav {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-family: 'Inter', sans-serif;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: opacity 0.2s ease-in-out;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    .card {
+      background: #2c2c2c;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    select, button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">XtraTrack</div>
+    <div class="nav-links">
+      <a href="/"><i class="fas fa-home"></i> Home</a>
+    </div>
+  </nav>
+
+  <div class="card">
+    <h2>Select Quality for: {{ title }}</h2>
+    <form action="/download" method="POST">
+      <input type="hidden" name="url" value="{{ video_url }}">
+      <select name="format_id" required>
+        {% for format in formats %}
+          <option value="{{ format.format_id }}">
+            {{ format.format_note }} - {{ format.resolution or format.height ~ 'p' }} - {{ format.filesize|default('Unknown')|int // 1000000 }}MB
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit">Download</button>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terabox - Video Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #0d6efd;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 20px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav a.active {
+            border-bottom: 2px solid #fff;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(90deg, rgba(13, 110, 253, 1) 0%, rgba(0, 123, 255, 1) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin: 0;
+            font-size: 3rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Animation for Header */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, button:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
+
+        button {
+            background-color: #0d6efd;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #084298;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #0d6efd;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav a {
+                margin: 0 10px;
+                font-size: 1rem;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            #videoPlayer {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                margin: 0 5px;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            input, button {
+                padding: 10px;
+            }
+
+            #videoPlayer {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <a href="/" class="active">Home</a>
+    <a href="/terabox">Terabox</a>
+</nav>
+
+<!-- Header -->
+<header>
+    <h1>Terabox Video Viewer</h1>
+</header>
+
+<div class="container">
+    <!-- Video Viewer Section -->
+    <div class="section" id="videoViewer">
+        <div class="card">
+            <h2>Online Video Viewer</h2>
+            <input type="text" id="teraboxVideoURL" placeholder="Enter Terabox video URL to view">
+            <button onclick="loadVideo()">Load Video</button>
+
+            <video id="videoPlayer" controls>
+                <source id="videoSourceTag" src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Terabox. All rights reserved.</p>
+</footer>
+
+<script>
+    // Load and play Terabox video in the viewer
+    function loadVideo() {
+        const videoURL = document.getElementById("teraboxVideoURL").value;
+        const videoPlayer = document.getElementById("videoPlayer");
+        
+        if(videoURL) {
+            // Set the source of the video player to the Terabox video URL
+            videoPlayer.src = videoURL;
+            videoPlayer.load();
+            videoPlayer.play();
+        } else {
+            alert("Please enter a Terabox video URL.");
+        }
+    }
+</script>
+
+</body>
+</html>
